@@ -36,14 +36,16 @@ const Products = (props) => {
 
       <div
         className={`${
-          data.status === "New"
-            ? "product-banner-new"
-            : "product-banner-trending"
+          data.status === "Mới"
+            ? "product-banner-moi" 
+            :  data.status === "Bình thường"
+            ? "product-banner-trending"
+            : "product-banner-noibat"
         }`}
       >
         {data.status}
       </div>
-      <div className="product-banner-stock-level-low">{data.type.realname}</div>
+      {/* <div className="product-banner-stock-level-low">{data.type.realname}</div> */}
       <div className="card-body">
         <h2 className="card-title">
           {data.realname}</h2>

@@ -9,6 +9,9 @@ import {
   Button,
   Form,
 } from "react-bootstrap";
+import Carousel from 'react-bootstrap/Carousel'
+import * as Icon from 'react-bootstrap-icons';
+import Spinner from 'react-bootstrap/Spinner'
 import { connect } from "react-redux";
 import axios from "axios";
 import {
@@ -63,6 +66,10 @@ class ProductDetails extends Component {
 
     return (
       <div className='py-5 px-5'>
+        <br />
+        <br />
+        <br />
+        <br />
         {loading ? (
           <Loader />
         ) : error ? (
@@ -72,12 +79,30 @@ class ProductDetails extends Component {
             <Meta title={product.name} />
             <Row>
               <Col sm={12} md={6} lg={4} xl={4}>
-                <Image style={{ width: "100%" }} src={product.image} rounded />
+              <div className={"my__carousel_main"}>
+                {/* <Image style={{ width: "100%" }} src={product.image && product.image[0]} rounded /> */}
+                <Carousel className ='detail-product-slide' fade nextIcon ={<Icon.ChevronRight color="black" size={25} />} prevIcon={<Icon.ChevronLeft color="black" size={30} />} >
+                {product.image && product.image.map((image,index) => {
+                if(index != 0 && image !== 'undefined'){
+                return (
+                <Carousel.Item className ='detail-product-item'>
+                <img
+                    className ='detail-product-image'
+                    src={image}
+                    alt="First slide"
+                    height={600} 
+                    width={600}
+                />
+                </Carousel.Item>
+                )};
+            })}
+            </Carousel>
+            </div>
               </Col>
               <Col sm={12} md={6} lg={4} xl={4}>
                 <Card style={{ border: "none" }}>
                   <ListGroup variant='flush'>
-                    <ListGroup.Item as='h3'>{product.name}</ListGroup.Item>
+                    <ListGroup.Item as='h3'>{product.realname}</ListGroup.Item>
                     <ListGroup.Item>
                       {/* {product.rating} rating from {product.numReviews} reviews */}
                       <Rating
@@ -86,10 +111,10 @@ class ProductDetails extends Component {
                       />
                     </ListGroup.Item>
                     <ListGroup.Item>
-                      Price:{" "}
-                      <span style={{ fontWeight: 700 }}>${product.price}</span>
+                    <span style={{ fontWeight: 1000, fontSize : 20 }}>Price:{" "}</span>
+                      <span style={{ fontWeight: 700,fontSize : 20 }}>${product.cost}</span>
                     </ListGroup.Item>
-                    <ListGroup.Item>{product.description}</ListGroup.Item>
+                    <ListGroup.Item><span style={{ fontWeight: 1000, fontSize : 20 }}>Mô tả sản phẩm:{" "}</span><br></br><div>{product.description}</div></ListGroup.Item>
                   </ListGroup>
                 </Card>
               </Col>
@@ -99,7 +124,7 @@ class ProductDetails extends Component {
                     <ListGroup.Item>
                       <Row>
                         <Col>Price: </Col>
-                        <Col>${product.price}</Col>
+                        <Col>${product.cost}</Col>
                       </Row>
                     </ListGroup.Item>
                     <ListGroup.Item>

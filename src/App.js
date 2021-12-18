@@ -3,7 +3,7 @@ import Home from "./screens/Home";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import ProductDetails from "./component/ProductDetails";
 import Header from "./component/Header";
-import Footer from "./component/Footer";
+import Footer from "./component/Footer/Footer";
 import Cart from "./screens/Cart";
 import SignScreen from "./screens/SignScreen";
 import Register from "./screens/Register";

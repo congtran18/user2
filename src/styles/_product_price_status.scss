@@ -1,4 +1,4 @@
-.product-details-banner-new:before {
+.product-details-banner-moi:before {
   content: "";
   width: 0px;
   height: 0px;
@@ -8,7 +8,7 @@
   left: 100%;
   top: 0px;
 }
-.product-details-banner-new {
+.product-details-banner-moi {
   position: absolute;
   top: 0;
   left: 3% auto;
@@ -156,7 +156,31 @@
   top: 0;
   left: 5%;
   color: #ffffff;
-  background-color: $colorTrending;
+  background-color: #c6ff5c;
+  border-color: $colorTrending;
+  padding: 6px;
+  // border-radius: 2px 2px;
+  font-size: 14px;
+}
+
+.product-banner-noibat{
+  position: absolute;
+  top: 0;
+  left: 5%;
+  color: #ffffff;
+  background-color:  #7626ff;
+  border-color: $colorTrending;
+  padding: 6px;
+  // border-radius: 2px 2px;
+  font-size: 14px;
+}
+
+.product-banner-moi{
+  position: absolute;
+  top: 0;
+  left: 5%;
+  color: #ffffff;
+  background-color:  #ff385d;
   border-color: $colorTrending;
   padding: 6px;
   // border-radius: 2px 2px;

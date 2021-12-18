@@ -28,7 +28,7 @@ export const listProducts = (keyword = "", pageNumber = "") => async (
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
     const { data } = await axios.get(
-      `/api/products/?keyword=${keyword}&pageNumber=${pageNumber}`
+      `http://localhost:5000/api/products`
     );
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -45,7 +45,7 @@ export const listProducts = (keyword = "", pageNumber = "") => async (
 export const listProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
-    const { data } = await axios.get(`/api/products/${id}`);
+    const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -70,7 +70,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.delete(`/api/products/${id}`, config);
+    await axios.delete(`http://localhost:5000/api/products/${id}`, config);
     dispatch({ type: PRODUCT_DELETE_SUCCESS });
   } catch (error) {
     dispatch({
@@ -95,7 +95,7 @@ export const createProduct = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post(`/api/products`, {}, config);
+    const { data } = await axios.post(`http://localhost:5000/api/products`, {}, config);
     dispatch({ type: PRODUCT_CREATE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -120,7 +120,7 @@ export const updateProduct = (id, data) => async (dispatch, getState) => {
       },
     };
 
-    await axios.put(`/api/products/${id}`, data, config);
+    await axios.put(`http://localhost:5000/api/products/${id}`, data, config);
     dispatch({ type: PRODUCT_UPDATE_SUCCESS });
   } catch (error) {
     dispatch({
@@ -148,7 +148,7 @@ export const createProductReview = (id, review) => async (
       },
     };
 
-    await axios.post(`/api/products/${id}/reviews`, review, config);
+    await axios.post(`http://localhost:5000/api/products/${id}/reviews`, review, config);
     dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS });
   } catch (error) {
     dispatch({

@@ -25,7 +25,7 @@ export const productListReducer = (state = { products: [] }, action) => {
     case PRODUCT_LIST_SUCCESS:
       return {
         loading: false,
-        products: action.payload.products,
+        products: action.payload.data,
         pages: action.payload.pages,
         page: action.payload.page,
       };
@@ -44,7 +44,7 @@ export const productDetailsReducer = (
     case PRODUCT_DETAILS_REQUEST:
       return { loading: true, ...state };
     case PRODUCT_DETAILS_SUCCESS:
-      return { loading: false, product: action.payload };
+      return { loading: false, product: action.payload.findProduct };
     case PRODUCT_DETAILS_FAIL:
       return { loading: false, error: action.error };
     default:

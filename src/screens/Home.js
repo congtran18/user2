@@ -13,26 +13,37 @@ import Meta from "../component/Meta";
 import Shipped from "../assets/shipped.png";
 import Time from "../assets/back-in-time.png";
 import Pay from "../assets/credit-card.png";
+import Clothes from "../assets/clothing1.png"
 import PopularProducts from "../component/PopularProducts";
+import Slider from "../component/Slider";
+import Products from "./Products";
+import NewsLetter from "../component/NewsLetter";
+import Categories from "../component/Categories";
 
 const data = [
   {
     id: 1,
     img: Shipped,
-    title: "FREE SHIPPING",
-    description: "For all order over 99$",
+    title: "Miễn phí giao hàng",
+    description: "Đối với những đơn hàng có giá trị lơn hơn 300k",
   },
   {
     id: 2,
     img: Time,
-    title: "DELIVERY ON TIME",
-    description: "If good have prolems",
+    title: "Giao hàng đúng hạn",
+    description: "Nếu không xảy ra những sự cố bất ngờ nào xảy ra",
   },
   {
     id: 3,
+    img: Clothes,
+    title: "Sản phẩm chất lượng",
+    description: "Sản phẩm luôn được đảm bảo về chất lượng trước khi giao",
+  },
+  {
+    id: 4,
     img: Pay,
-    title: "SECURE PAYMENT",
-    description: "100% secure payment",
+    title: "Thanh toán dễ dàng",
+    description: "Dễ dàng thanh toán bằng nhiều hình thức với độ bảo mật cao",
   },
 ];
 
@@ -65,9 +76,13 @@ class Product extends Component {
     return (
       <>
         <Meta />
-        {!keyword && <ProductCarousel />}
-        <Container>
-          {!keyword && <h2>Latest products</h2>}
+        {/* {!keyword && <ProductCarousel />} */}
+        <Slider />
+        <Container style={{ maxWidth: '85%'}}>
+          <br />
+          <br />
+          {!keyword && <h2>Sản phẩm nổi bật</h2>}
+          <br />
           {keyword && (
             <>
               {" "}
@@ -93,7 +108,8 @@ class Product extends Component {
                     {products.map((i, index) => {
                       return (
                         <>
-                          {!(i.image === "/images/sample.jpeg") && (
+                        <Products data = {i}/>
+                          {/* {!(i.image === "/images/sample.jpeg") && (
                             <Col key={index} sm={12} md={6} lg={3} xl={3}>
                               <Card className='my-3' style={{ border: "none" }}>
                                 <Card.Img
@@ -124,18 +140,18 @@ class Product extends Component {
                                 </Card.Body>
                               </Card>
                             </Col>
-                          )}
+                          )} */}
                         </>
                       );
                     })}
                   </>
                 )}
               </Row>
-              <Paginate
+              {/* <Paginate
                 pages={pages}
                 page={page}
                 keyword={keyword ? keyword : ""}
-              />
+              /> */}
 
               {/* something new */}
 
@@ -152,8 +168,9 @@ class Product extends Component {
                   </div>
                 ))}
               </div>
-
-              <PopularProducts />
+                  <NewsLetter />
+                  <Categories />
+              {/* <PopularProducts /> */}
             </>
           )}
         </Container>

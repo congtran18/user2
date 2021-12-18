@@ -1,89 +1,91 @@
-import Airpord from "./assets/airpods.jpg";
-import Phone from "./assets/phone.jpg";
-import Alexa from "./assets/alexa.jpg";
-import Camera from "./assets/camera.jpg";
-import PlayStation from "./assets/playstation.jpg";
-import Mouse from "./assets/mouse.jpg";
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable comma-dangle */
+import {
+  // Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Link,
+  makeStyles,
+  Typography,
+} from '@material-ui/core';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { useRouteMatch } from 'react-router-dom';
+import { formatPrice } from '../../../../../utils';
 
-const data = [
-  {
-    _id: "1",
-    name: "Airpods Wireless Bluetooth Headphones",
-    image: Airpord,
-    description:
-      "Bluetooth technology lets you connect it with compatible devices wirelessly High-quality AAC audio offers immersive listening experience Built-in microphone allows you to take calls while working",
-    brand: "Apple",
-    category: "Electronics",
-    price: 89.99,
-    countInStock: 10,
-    rating: 4.5,
-    numReviews: 12,
+const useStyles = makeStyles((theme) => ({
+  container: {
+    marginTop: theme.spacing(1),
+    maxWidth: 345,
   },
-  {
-    _id: "2",
-    name: "iPhone 11 Pro 256GB Memory",
-    image: Phone,
-    description:
-      "Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life",
-    brand: "Apple",
-    category: "Electronics",
-    price: 599.99,
-    countInStock: 7,
-    rating: 4.0,
-    numReviews: 8,
+  media: {
+    height: 200,
+    objectFit: 'cover',
   },
-  {
-    _id: "3",
-    name: "Cannon EOS 80D DSLR Camera",
-    image: Camera,
-    description:
-      "Characterized by versatile imaging specs, the Canon EOS 80D further clarifies itself using a pair of robust focusing systems and an intuitive design",
-    brand: "Cannon",
-    category: "Electronics",
-    price: 929.99,
-    countInStock: 5,
-    rating: 3,
-    numReviews: 12,
+  title: {
+    height: theme.spacing(2.5),
+    fontSize: 15,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
-  {
-    _id: "4",
-    name: "Sony Playstation 4 Pro White Version",
-    image: PlayStation,
-    description:
-      "The ultimate home entertainment center starts with PlayStation. Whether you are into gaming, HD movies, television, music",
-    brand: "Sony",
-    category: "Electronics",
-    price: 399.99,
-    countInStock: 11,
-    rating: 5,
-    numReviews: 12,
+  description: {
+    height: theme.spacing(6.25),
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
-  {
-    _id: "5",
-    name: "Logitech G-Series Gaming Mouse",
-    image: Mouse,
-    description:
-      "Get a better handle on your games with this Logitech LIGHTSYNC gaming mouse. The six programmable buttons allow customization for a smooth playing experience",
-    brand: "Logitech",
-    category: "Electronics",
-    price: 49.99,
-    countInStock: 7,
-    rating: 3.5,
-    numReviews: 10,
-  },
-  {
-    _id: "6",
-    name: "Amazon Echo Dot 3rd Generation",
-    image: Alexa,
-    description:
-      "Meet Echo Dot - Our most popular smart speaker with a fabric design. It is our most compact smart speaker that fits perfectly into small space",
-    brand: "Amazon",
-    category: "Electronics",
-    price: 29.99,
-    countInStock: 0,
-    rating: 4,
-    numReviews: 12,
-  },
-];
 
-export default data;
+  link: {
+    textDecoration: 'none',
+  },
+}));
+
+function CardItem({ item }) {
+  const classes = useStyles();
+  const { url } = useRouteMatch();
+  const defaultURL = process.env.REACT_APP_BACK_END_PUBLIC_URL;
+
+  return (
+    <Link
+      href={`${process.env.REACT_APP_FRONT_END_URL}${url}/${item.id}`}
+      underline="none"
+    >
+      <Card className={classes.container}>
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image={`${defaultURL}/${item.coverImage}`}
+            title="Contemplative Reptile"
+          />
+          <CardContent>
+            <Typography
+              gutterBottom
+              variant="caption"
+              component="p"
+              className={classes.title}
+            >
+              {item.name}
+            </Typography>
+            <Typography variant="subtitle2">
+              {formatPrice(item.price)}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              className={classes.description}
+            >
+              {item.description}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Link>
+  );
+}
+CardItem.propTypes = {
+  item: PropTypes.object,
+};
+
+export default CardItem;

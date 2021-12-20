@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
     root: {
         backgroundColor: "#8cf5d0",
-        color: '#fff',
+        color: '#000',
         [ theme.breakpoints.down('sm') ]: {
             textAlign: 'center'
         }

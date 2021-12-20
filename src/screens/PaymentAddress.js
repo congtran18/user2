@@ -36,18 +36,32 @@ class PaymentAddress extends Component {
   }
   render() {
     return (
+      <>
+      <br />
+      <br />
       <FormContainer>
         <CheckoutSteps step1 step2 step3 />
 
-        <h2>Payment Method</h2>
+        <h2>Phương thức thanh toán</h2>
         <Form>
           <Form.Check
             type='radio'
-            label='Paypal or Credit Card'
+            label='Paypal hoặc Credit Card'
             id='PayPal'
             name='paymentMethod'
             value='PayPal'
-            checked
+            // checked
+            onChange={(e) => this.setState({ paymentMethod: e.target.value })}
+            className='py-2'
+          />
+
+        <Form.Check
+            type='radio'
+            label='Thanh toán khi nhận hàng'
+            id='directly'
+            name='Thanh toán khi nhận hàng'
+            value='Thanh toán khi nhận hàng'
+            // checked
             onChange={(e) => this.setState({ paymentMethod: e.target.value })}
             className='py-2'
           />
@@ -68,6 +82,7 @@ class PaymentAddress extends Component {
           </Button>
         </Form>
       </FormContainer>
+      </>
     );
   }
 }

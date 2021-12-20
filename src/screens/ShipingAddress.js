@@ -45,12 +45,16 @@ class ShipingAddress extends Component {
 
   render() {
     return (
+      <>
+      <br />
+      <br />
       <FormContainer>
         <CheckoutSteps step1 step2 />
-        <h2>Shipping Address</h2>
+        <h2>Địa chỉ giao hàng</h2>
+        <br />
         <Form>
           <Form.Group controlId='formBasicEmail'>
-            <Form.Label>Address</Form.Label>
+            <Form.Label>Địa chỉ</Form.Label>
             <Form.Control
               type='text'
               placeholder='Enter address'
@@ -60,7 +64,7 @@ class ShipingAddress extends Component {
           </Form.Group>
 
           <Form.Group controlId='formBasicPassword'>
-            <Form.Label>City</Form.Label>
+            <Form.Label>Thành phố</Form.Label>
             <Form.Control
               type='text'
               placeholder='Enter city'
@@ -80,7 +84,7 @@ class ShipingAddress extends Component {
           </Form.Group>
 
           <Form.Group controlId='formBasicEmail'>
-            <Form.Label>Country</Form.Label>
+            <Form.Label>Quốc gia</Form.Label>
             <Form.Control
               type='text'
               placeholder='Enter country'
@@ -93,6 +97,7 @@ class ShipingAddress extends Component {
           </Button>
         </Form>
       </FormContainer>
+      </>
     );
   }
 }

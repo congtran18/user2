@@ -43,7 +43,7 @@ class PlaceOrder extends Component {
     };
     axios
       .post(
-        `/api/orders`,
+        `http://localhost:5000/api/user-order`,
         {
           orderItems: cart.cartItems,
           shippingAddress: cart.shippingAddress,
@@ -57,8 +57,7 @@ class PlaceOrder extends Component {
       )
       .then((response) => {
         localStorage.removeItem("cartItems", []);
-
-        this.props.history.push(`/order/${response.data._id}`);
+        this.props.history.push(`/order/${response.data.order._id}`);
       })
       .catch((error) => {
         console.log(error);
@@ -68,16 +67,15 @@ class PlaceOrder extends Component {
   componentDidMount() {
     const cart = this.props.getCartData;
     const itemsPrice = cart.cartItems
-      .reduce((acc, item) => acc + item.qty * item.price, 0)
-      .toFixed(2);
+      .reduce((acc, item) => acc + item.qty * (item.cost - item.cost  * item.discount / 100) , 0);
 
-    const shippingPrice = itemsPrice > 100 ? 0 : 100;
-    const taxPrice = this.addDecimals(Number((0.05 * itemsPrice).toFixed(2)));
+    const shippingPrice = itemsPrice > 30000 ? 0 : 100;
+    const taxPrice = this.addDecimals(Number((0.05 * itemsPrice)));
     const totalPrice = (
       Number(itemsPrice) +
       Number(shippingPrice) +
       Number(taxPrice)
-    ).toFixed(2);
+    );
 
     this.setState({
       taxPrice,
@@ -88,7 +86,7 @@ class PlaceOrder extends Component {
   }
 
   addDecimals = (num) => {
-    return (Math.round(num * 100) / 100).toFixed(2);
+    return (Math.round(num * 100) / 100);
   };
 
   render() {
@@ -99,13 +97,16 @@ class PlaceOrder extends Component {
     }
 
     return (
+      <>
+      <br />
+      <br />
       <Container className='py-5'>
         <CheckoutSteps step1 step2 step3 step4 />
         <Row>
           <Col ms={8}>
             <ListGroup variant='flush'>
               <ListGroup.Item>
-                <h4>Shipping:</h4>
+                <h4>Giao hàng đến:</h4>
                 <p>
                   {cart.shippingAddress.address}, {cart.shippingAddress.city},{" "}
                   {cart.shippingAddress.postalCode},{" "}
@@ -114,12 +115,12 @@ class PlaceOrder extends Component {
               </ListGroup.Item>
 
               <ListGroup.Item>
-                <h4>Payment:</h4>
-                <p>Method: {cart.paymentAddress.paymentMethod}</p>
+                <h4>Thanh toán:</h4>
+                <p>Phương thức: {cart.paymentAddress.paymentMethod}</p>
               </ListGroup.Item>
 
               <ListGroup.Item>
-                <h4>Order Items:</h4>
+                <h4>Danh sách sản phẩm:</h4>
                 {cart.cartItems.length === 0 ? (
                   <p>Cart is empty</p>
                 ) : (
@@ -131,20 +132,20 @@ class PlaceOrder extends Component {
                             <Col md={1}>
                               <Image
                                 src={item.image}
-                                alt={item.name}
+                                alt={item.realname}
                                 fluid
                                 rounded
                               />
                             </Col>
                             <Col>
-                              <Link to={`/product/${item.product}`}>
-                                {item.name}
+                              <Link to={`/product/${item._id}`}>
+                                {item.realname}
                               </Link>
                             </Col>
 
                             <Col md={4}>
-                              {item.qty} x ${item.price} = $
-                              {item.qty * item.price}
+                              {item.qty} x ${item.cost - item.cost  * item.discount / 100 } = $
+                              {item.qty * (item.cost - item.cost  * item.discount / 100)}
                             </Col>
                           </Row>
                         </ListGroup.Item>
@@ -160,26 +161,26 @@ class PlaceOrder extends Component {
             <Card>
               <ListGroup variant='flush'>
                 <ListGroup.Item>
-                  <h4>Order Summary</h4>
+                  <h4>Thông tin hoá đơn</h4>
                 </ListGroup.Item>
 
                 <ListGroup.Item variant='flush'>
                   <Row>
-                    <Col>Items</Col>
+                    <Col>Giá giỏ hàng</Col>
                     <Col>${itemsPrice}</Col>
                   </Row>
 
                   <Row>
-                    <Col>Shipping</Col>
+                    <Col>Phí ship</Col>
                     <Col>${shippingPrice}</Col>
                   </Row>
 
                   <Row>
-                    <Col>Tax</Col>
+                    <Col>Thuế</Col>
                     <Col>${taxPrice}</Col>
                   </Row>
                   <Row>
-                    <Col>Total</Col>
+                    <Col>Tổng cộng</Col>
                     <Col>${totalPrice}</Col>
                   </Row>
                 </ListGroup.Item>
@@ -191,7 +192,7 @@ class PlaceOrder extends Component {
                     className='btn-block'
                     disabled={cart.cartItems.length === 0}
                     onClick={() => this.placeOrderHandler()}>
-                    Place Order
+                    Xác nhận thanh toán
                   </Button>
                   {this.props.getLoginInfoData.userInfo.isAdmin && (
                     <label style={{ opacity: 0.8, fontSize: 12 }}>
@@ -204,6 +205,7 @@ class PlaceOrder extends Component {
           </Col>
         </Row>
       </Container>
+      </>
     );
   }
 }

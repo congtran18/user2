@@ -38,7 +38,8 @@ class Header extends Component {
 
   render() {
     const { userInfo } = this.props.getLoginInfoData;
-    const toggleNav = this.state.toggleNav
+    const toggleNav = this.state.toggleNav;
+    const { cartItems } = this.props.getcartData;
     return (
       <header style={{ marginBottom: 100 }}>
         <Navbar bg='light' className='px-5' fixed='top' expand='lg' style = {{ backgroundImage: `url("https://images.unsplash.com/photo-1614208194190-5bf690ad8a98?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFzaGlvbiUyMGJhY2tncm91bmR8ZW58MHx8MHx8&w=1000&q=80")`  }}>
@@ -102,7 +103,7 @@ class Header extends Component {
                     className="store-cart-icon"
                   />
                   <span className="cart-basket d-flex align-items-center justify-content-center ">
-                    {2}{" "}
+                    {cartItems.length}{" "}
                   </span>
                 </Link>
               </li>
@@ -135,6 +136,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    getcartData: state.cart,
     getLoginInfoData: state.userLogin,
   };
 };

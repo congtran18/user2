@@ -45,7 +45,7 @@ class ProfileScreen extends Component {
       });
 
     axios
-      .get("/api/orders/myorders", config)
+      .get("/api/user-order/myorders", config)
       .then((response) => {
         this.setState({
           myOrders: response.data,
@@ -75,11 +75,16 @@ class ProfileScreen extends Component {
     const { name, email, password } = this.state;
 
     return (
+      <>
+      <br />
+      <br />
+      <br />
       <Container className='py-4'>
         {!this.state.loading ? (
           <Row>
             <Col md={4}>
-              <h3>User Profile</h3>
+              <h3>Cập nhật thông tin</h3>
+              <br />
               <Form>
                 <Form.Group controlId='formBasicEmail'>
                   <Form.Label>Name</Form.Label>
@@ -121,13 +126,13 @@ class ProfileScreen extends Component {
                   type='submit'
                   className='w-100'
                   onClick={this.submitHandler}>
-                  Update profile
+                  Lưu
                 </Button>
               </Form>
             </Col>
             <Col md={8}>
-              <h4>My Orders</h4>
-
+              <h4>Danh sách hoá đơn</h4>
+              <br />
               <Table striped bordered hover responsive className='table-sm'>
                 <thead>
                   <tr>
@@ -185,6 +190,7 @@ class ProfileScreen extends Component {
           <Loader />
         )}
       </Container>
+      </>
     );
   }
 }

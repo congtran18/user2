@@ -5,44 +5,44 @@ export default class CheckoutSteps extends Component {
   render() {
     const { step1, step2, step3, step4 } = this.props;
     return (
-      <Nav className='justify-content-center mb-4'>
-        <Nav.Item>
+      <Nav className='mb-4' style={{ width: "120vh" }}>
+        <Nav.Item style={{ width: "18vh" }}>
           {step1 ? (
             <LinkContainer to='/login'>
-              <Nav.Link>Sign In</Nav.Link>
+              <Nav.Link><span style={{ fontWeight: 1000, fontSize : 15, fontFamily: "Comic Sans MS" }}>Đăng nhập</span></Nav.Link>
             </LinkContainer>
           ) : (
-            <Nav.Link disabled>Sign In</Nav.Link>
+            <Nav.Link disabled><span style={{ fontWeight: 1000, fontSize : 15, fontFamily: "Comic Sans MS" }}>Đăng nhập</span></Nav.Link>
           )}
         </Nav.Item>
 
-        <Nav.Item>
+        <Nav.Item style={{ width: "18vh" }}>
           {step2 ? (
             <LinkContainer to='/shipping'>
-              <Nav.Link>Shipping</Nav.Link>
+              <Nav.Link><span style={{ fontWeight: 1000, fontSize : 15, fontFamily: "Comic Sans MS" }}>Địa chỉ</span></Nav.Link>
             </LinkContainer>
           ) : (
-            <Nav.Link disabled>Shipping</Nav.Link>
+            <Nav.Link disabled><span style={{ fontWeight: 1000, fontSize : 15, fontFamily: "Comic Sans MS" }}>Địa chỉ</span></Nav.Link>
           )}
         </Nav.Item>
 
-        <Nav.Item>
+        <Nav.Item style={{ width: "19vh" }}>
           {step3 ? (
             <LinkContainer to='/payment'>
-              <Nav.Link>Payment</Nav.Link>
+              <Nav.Link><span style={{ fontWeight: 1000, fontSize : 15, fontFamily: "Comic Sans MS" }}>Thanh toán</span></Nav.Link>
             </LinkContainer>
           ) : (
-            <Nav.Link disabled>Payment</Nav.Link>
+            <Nav.Link disabled><span style={{ fontWeight: 1000, fontSize : 15, fontFamily: "Comic Sans MS" }}>Thanh toán</span></Nav.Link>
           )}
         </Nav.Item>
 
-        <Nav.Item>
+        <Nav.Item style={{ width: "18vh" }}>
           {step4 ? (
             <LinkContainer to='/placeorder'>
-              <Nav.Link>Place Order</Nav.Link>
+              <Nav.Link><span style={{ fontWeight: 1000, fontSize : 15, fontFamily: "Comic Sans MS" }}>Xác nhận</span></Nav.Link>
             </LinkContainer>
           ) : (
-            <Nav.Link disabled>Place Order</Nav.Link>
+            <Nav.Link disabled><span style={{ fontWeight: 1000, fontSize : 15, fontFamily: "Comic Sans MS" }}>Xác nhận</span></Nav.Link>
           )}
         </Nav.Item>
       </Nav>

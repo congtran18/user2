@@ -57,21 +57,21 @@ class OrderScreen extends Component {
       },
     };
     axios
-      .get(`/api/orders/${this.props.match.params.id}`, config)
+      .get(`http://localhost:5000/api/user-order/${this.props.match.params.id}`, config)
       .then((response) => {
         this.setState({
           data: response.data,
         });
 
-        if (!response.data.isPaid) {
-          if (!window.paypal) {
-            addPaypalScript();
-          } else {
-            this.setState({
-              sdkReady: true,
-            });
-          }
-        }
+        // if (!response.data.isPaid) {
+        //   if (!window.paypal) {
+        //     // addPaypalScript();
+        //   } else {
+        //     this.setState({
+        //       sdkReady: true,
+        //     });
+        //   }
+        // }
       })
       .catch((error) => {
         console.log(error);
@@ -115,6 +115,9 @@ class OrderScreen extends Component {
     }
 
     return (
+      <>
+      < br />
+      < br />
       <Container className='py-5'>
         <Row>
           <Col ms={8}>
@@ -150,7 +153,7 @@ class OrderScreen extends Component {
               </ListGroup.Item>
 
               <ListGroup.Item>
-                <h4>Order Items:</h4>
+                <h4>Danh sách sản phẩm</h4>
                 {order.orderItems.length === 0 ? (
                   <p>Cart is empty</p>
                 ) : (
@@ -162,20 +165,20 @@ class OrderScreen extends Component {
                             <Col md={1}>
                               <Image
                                 src={item.image}
-                                alt={item.name}
+                                alt={item.realname}
                                 fluid
                                 rounded
                               />
                             </Col>
                             <Col>
-                              <Link to={`/product/${item.product}`}>
-                                {item.name}
+                              <Link to={`/product/${item._id}`}>
+                                {item.realname}
                               </Link>
                             </Col>
 
                             <Col md={4}>
-                              {item.qty} x ${item.price} = $
-                              {item.qty * item.price}
+                              {item.qty} x ${(item.cost)} = $
+                              {item.qty * (item.cost)}
                             </Col>
                           </Row>
                         </ListGroup.Item>
@@ -191,7 +194,7 @@ class OrderScreen extends Component {
             <Card>
               <ListGroup variant='flush'>
                 <ListGroup.Item>
-                  <h4>Order Summary</h4>
+                  <h4>Thông tin hoá đơn</h4>
                 </ListGroup.Item>
 
                 <ListGroup.Item variant='flush'>
@@ -214,7 +217,7 @@ class OrderScreen extends Component {
                     <Col>${order.totalPrice}</Col>
                   </Row>
                 </ListGroup.Item>
-                {!order.isPaid && !user.userInfo.isAdmin && (
+                {/* {!order.isPaid && !user.userInfo.isAdmin && (
                   <ListGroup.Item>
                     {!this.state.sdkReady ? (
                       <Loader />
@@ -238,12 +241,13 @@ class OrderScreen extends Component {
                       Mark As Delivered
                     </Button>
                   </ListGroup.Item>
-                )}
+                )} */}
               </ListGroup>
             </Card>
           </Col>
         </Row>
       </Container>
+      </>
     );
   }
 }
